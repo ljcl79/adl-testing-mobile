@@ -1,0 +1,21 @@
+{
+  "name": "unidad6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "appium": "^3.2.0",
+    "webdriverio": "^9.23.3"
+  },
+  "devDependencies": {
+    "appium-uiautomator2-driver": "^6.8.0",
+    "jest": "^30.2.0"
+  }
+}
