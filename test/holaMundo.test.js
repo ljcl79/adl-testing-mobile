@@ -59,4 +59,48 @@ describe("Verificando conexión", () => {
         expect(await bmiResult.isDisplayed()).toBe(true);
         expect(await bmiCategory.isDisplayed()).toBe(true);
     });
+
+
+    it("Calcular peso con valores no válidos", async () => {
+
+        const entradaPeso = await driver.$('~Entrada de Peso en kilogramos');
+        const entradaAltura = await driver.$('android=new UiSelector().resourceId("height_input")');
+        const botonCalcular = await driver.$('//android.view.ViewGroup[@content-desc="Botón para calcular el IMC"]');
+
+        expect(await botonCalcular.isDisplayed()).toBe(true);
+
+        await entradaPeso.setValue('-15');
+        await entradaAltura.setValue('180');
+        await botonCalcular.click();
+
+        const alertTitle = await driver.$('android=new UiSelector().resourceId("com.calculadoraimc:id/alert_title")');
+        const message = await driver.$('//android.widget.TextView[@resource-id="android:id/message"]');
+        const okButton = await driver.$('//android.widget.Button[@resource-id="android:id/button1"]');
+
+        expect(await alertTitle.getText()).toBe('Entrada Inválida');
+        expect(await message.getText()).toBe('Por favor, introduce un peso y altura válidos.');
+
+        okButton.click();
+    });
+
+    it("Calcular peso sin datos completos", async () => {
+
+        const entradaPeso = await driver.$('~Entrada de Peso en kilogramos');
+        const entradaAltura = await driver.$('android=new UiSelector().resourceId("height_input")');
+        const botonCalcular = await driver.$('//android.view.ViewGroup[@content-desc="Botón para calcular el IMC"]');
+
+        expect(await botonCalcular.isDisplayed()).toBe(true);
+
+        await entradaPeso.setValue('');
+        await entradaAltura.setValue('');
+        await botonCalcular.click();
+
+        const alertTitle = await driver.$('android=new UiSelector().resourceId("com.calculadoraimc:id/alert_title")');
+        const message = await driver.$('//android.widget.TextView[@resource-id="android:id/message"]');
+        const okButton = await driver.$('//android.widget.Button[@resource-id="android:id/button1"]');
+
+        expect(await alertTitle.getText()).toBe('Entrada Inválida');
+        expect(await message.getText()).toBe('Por favor, introduce un peso y altura válidos.');
+        okButton.click();
+    });
 });
