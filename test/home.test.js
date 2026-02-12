@@ -55,7 +55,7 @@ describe("Validando calculos", () => {
 
         const bmiResult = await driver.$('//android.widget.TextView[@content-desc="Resultado del IMC: 25.62"]');
         const bmiCategory = await driver.$('//android.widget.TextView[@content-desc="Categoría del IMC: Sobrepeso"]');
-        console.log(bmiResult);
+
         expect(await bmiResult.isDisplayed()).toBe(true);
         expect(await bmiCategory.isDisplayed()).toBe(true);
     });
